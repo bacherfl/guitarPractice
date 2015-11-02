@@ -1,0 +1,26 @@
+<ion-view view-title="Home">
+  <div class="bar bar-header bar-dark">
+    <h1 class="title">Create Exercise</h1>
+  </div>
+  <ion-content class="padding has-header">
+    <div class="list list-inset">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Name</span>
+        <input type="text" placeholder="Name" ng-model="exercise.name">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Description</span>
+        <input type="text" placeholder="Description" ng-model="exercise.description">
+      </label>
+      <button class="button button-full button-positive icon-left ion-camera" ng-click="takePicture()">
+        Take Picture
+      </button>
+      <button class="button button-full button-balanced icon-left ion-disc" ng-click="saveExercise()">
+        Save
+      </button>
+    </div>
+    <img ng-show="exercise.image !== ''" ng-src="{{urlForImage(exercise.image)}}">
+    <img ng-show="exercise.image === ''" ng-src="https://placehold.it/300x300">
+    {{imgURI}}
+  </ion-content>
+</ion-view>

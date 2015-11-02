@@ -1,0 +1,16 @@
+<ion-view view-title="Home">
+  <div class="bar bar-header bar-dark">
+    <h1 class="title"><i class="icon ion-music-note"></i> Practice Log</h1>
+  </div>
+  <ion-content class="padding has-header">
+    <div class="list card">
+      <div class="item item-divider">
+        Categories
+      </div>
+      <a href="#/category/{{category.id}}" class="item item-icon-left" ng-repeat="category in categories">
+        <i class="icon {{category.icon}}"></i>
+        {{category.name}}
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,20 @@
+<ion-view view-title="Home" cache-view="false">
+  <div class="bar bar-header bar-dark">
+    <h1 class="title"> {{category.name}}</h1>
+  </div>
+  <div class="float-button">
+    <span class="height-fix">
+      <a class="content" href="#/create/{{category.id}}">
+        <i class="ion-plus-round"> </i>
+      </a>
+    </span>
+  </div>
+  <ion-content class="padding has-header">
+    <div class="list card">
+      <a href="#" class="item item-icon-left" ng-repeat="exercise in exercises">
+        <i class="icon ion-home"></i>
+        {{exercise.name}}
+      </a>
+    </div>
+  </ion-content>
+</ion-view>
