@@ -65,29 +65,47 @@ angular.module('starter.services', [])
       }
     }
   }])
-  .factory('Camera', ['$q', '$cordovaCamera', function($q, $cordovaCamera) {
+  .factory('CameraService', ['$q', '$cordovaCamera', function($q, $cordovaCamera) {
 
   return {
-    getPicture: function(options) {
-      var q = $q.defer();
-
+    getPicture: function(options, onSuccess) {
       $cordovaCamera.getPicture(options).then(function(imageData) {
-        q.resolve("data:image/jpeg;base64," + imageData);
+        onImageSuccess(imageData);
+
+        function onImageSuccess(fileURI) {
+          createFileEntry(fileURI);
+        }
+
+        function createFileEntry(fileURI) {
+          window.resolveLocalFileSystemURL(fileURI, copyFile, fail);
+        }
+        function copyFile(fileEntry) {
+          var name = fileEntry.fullPath.substr(fileEntry.fullPath.lastIndexOf('/') + 1);
+          var newName = makeId() + name;
+
+          window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(fileSystem2) {
+            fileEntry.copyTo(fileSystem2, newName, onCopySuccess, fail);
+          }, fail);
+        }
+        function onCopySuccess(entry) {
+          onSuccess(entry);
+        }
+        function fail(error) {
+          console.log("fail: " + error.code);
+        }
+        function makeId() {
+          var text = "";
+          var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+          for (var i = 0; i < 5; i++) {
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+          }
+          return text;
+        }
       }, function(err) {
         // An error occured. Show a message to the user
-        q.reject(err);
+        console.log(err)
       });
-      return q.promise;
-      /*
-      navigator.camera.getPicture(function(result) {
-        // Do any magic you need
-        q.resolve(result);
-      }, function(err) {
-        q.reject(err);
-      }, options);
-
-      return q.promise;
-      */
     }
   }
 }]);

@@ -19,8 +19,10 @@
         Save
       </button>
     </div>
-    <img ng-show="exercise.image !== ''" ng-src="{{urlForImage(exercise.image)}}">
-    <img ng-show="exercise.image === ''" ng-src="https://placehold.it/300x300">
+    <div class="center-cropped">
+      <img ng-show="exercise.image !== ''" ng-src="{{urlForImage(exercise.image)}}">
+      <img ng-show="exercise.image === ''" ng-src="https://placehold.it/300x300">
+    </div>
     {{imgURI}}
   </ion-content>
 </ion-view>

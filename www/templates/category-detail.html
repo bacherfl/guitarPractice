@@ -10,11 +10,28 @@
     </span>
   </div>
   <ion-content class="padding has-header">
-    <div class="list card">
-      <a href="#" class="item item-icon-left" ng-repeat="exercise in exercises">
-        <i class="icon ion-home"></i>
-        {{exercise.name}}
-      </a>
+    <div class="list card" ng-repeat="exercise in exercises">
+      <div class="item item-avatar">
+        <h2>{{exercise.name}}</h2>
+      </div>
+
+      <div class="item item-body">
+        <div class="center-cropped">
+          <img class="full-image" ng-show="exercise.image !== ''" ng-src="{{urlForImage(exercise.image)}}">
+        </div>
+        <p>{{exercise.description}}</p>
+      </div>
+
+      <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" href="#">
+          <i class="icon ion-thumbsup"></i>
+          Start Practice
+        </a>
+        <a class="tab-item" href="#">
+          <i class="icon ion-android-delete"></i>
+          Delete
+        </a>
+      </div>
     </div>
   </ion-content>
 </ion-view>
