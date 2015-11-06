@@ -6,16 +6,33 @@ angular.module('starter.controllers', [])
     $scope.categories = categories;
   })
 
-  .controller('CategoryDetailCtrl', function($scope, $state, category, exercises) {
+  .controller('CategoryDetailCtrl', function($scope, $state, category, Exercises) {
     $scope.$on('$ionicView.enter', function() {
       $scope.category = category;
-      $scope.exercises = exercises;
+      Exercises.getAllOfCategory(category.id, function(exercises) {
+        $scope.exercises = exercises;
+      })
     });
     $scope.urlForImage = function(imageName) {
+      if (imageName == null)
+        return;
       console.log(imageName);
       var name = imageName.substr(imageName.lastIndexOf('/') + 1);
       var trueOrigin = cordova.file.dataDirectory + name;
       return trueOrigin;
+    };
+
+    $scope.deleteExercise = function(exercise) {
+      Exercises.delete(exercise, function() {
+        var removeIndex;
+
+        for (var i = 0; i < $scope.exercises.length; i++) {
+          if ($scope.exercises[i].id == exercise.id) {
+            $scope.exercises.splice(i, 1);
+            continue;
+          }
+        }
+      });
     };
   })
 

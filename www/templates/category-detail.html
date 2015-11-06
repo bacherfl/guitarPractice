@@ -11,13 +11,13 @@
   </div>
   <ion-content class="padding has-header">
     <div class="list card" ng-repeat="exercise in exercises">
-      <div class="item item-avatar">
+      <div class="item">
         <h2>{{exercise.name}}</h2>
       </div>
 
       <div class="item item-body">
         <div class="center-cropped">
-          <img class="full-image" ng-show="exercise.image !== ''" ng-src="{{urlForImage(exercise.image)}}">
+          <img class="full-image" ng-show="exercise.image !== null" ng-src="{{urlForImage(exercise.image)}}">
         </div>
         <p>{{exercise.description}}</p>
       </div>
@@ -27,7 +27,7 @@
           <i class="icon ion-thumbsup"></i>
           Start Practice
         </a>
-        <a class="tab-item" href="#">
+        <a class="tab-item" href="#" ng-click="deleteExercise(exercise)">
           <i class="icon ion-android-delete"></i>
           Delete
         </a>

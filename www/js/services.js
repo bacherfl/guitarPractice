@@ -1,3 +1,10 @@
+function getResultRowsAsArray(res) {
+  var resultArray = [];
+  for (var i = 0; i < res.rows.length; i++) {
+    resultArray.push(res.rows.item(i));
+  }
+  return resultArray;
+}
 /**
  * Created by florian on 30.10.2015.
  */
@@ -25,43 +32,48 @@ angular.module('starter.services', [])
       }
     }
   })
-  .factory('Exercises', ['$window', function($window) {
+  .factory('Exercises', ['$window', '$cordovaSQLite', function($window, $cordovaSQLite) {
+
     return {
       store: function(exercise) {
-        var exercises;
-        if ($window.localStorage['exercises'] == null || $window.localStorage['exercises'] == "") {
-          exercises = [];
-        } else {
-          exercises = JSON.parse($window.localStorage['exercises']);
-        }
-        exercises.push(JSON.stringify(exercise));
-        $window.localStorage['exercises'] = JSON.stringify(exercises);
-        console.log($window.localStorage['exercises']);
-      },
-      all: function() {
-        var result = [];
-        if ($window.localStorage['exercises'] == null || $window.localStorage['exercises'] == "")
-          return result;
-        angular.forEach(JSON.parse($window.localStorage['exercises']), function(exercise) {
-          exercise = JSON.parse(exercise);
-          result.push(exercise);
-        });
-        return result;
-      },
-      getAllOfCategory: function(categoryId) {
-        var result = [];
-        console.log($window.localStorage['exercises']);
 
-        if ($window.localStorage['exercises'] == null || $window.localStorage['exercises'] == "")
-          return result;
-        angular.forEach(JSON.parse($window.localStorage['exercises']), function(exercise) {
-          exercise = JSON.parse(exercise);
-          if (exercise.categoryId == categoryId) {
-            result.push(exercise);
-          }
-        });
+        var query = "INSERT INTO exercises (categoryId, name, description, image) VALUES (?,?,?,?)";
+        console.log(query);
+        console.log(exercise);
+        $cordovaSQLite.execute(db, query, [exercise.categoryId, exercise.name, exercise.description, exercise.image])
+          .then(function(res) {
+            console.log(res);
+          }, function(err) {
+            console.error(err);
+          });
 
-        return result;
+      },
+      all: function(callback) {
+        var query = "SELECT * FROM exercises";
+        $cordovaSQLite.execute(db, query)
+          .then(function(res) {
+            var resultArray = getResultRowsAsArray(res);
+            callback(resultArray);
+          });
+      },
+      getAllOfCategory: function(categoryId, callback) {
+
+        var query = "SELECT * FROM exercises WHERE categoryId=?";
+        $cordovaSQLite.execute(db, query, [categoryId])
+          .then(function(res) {
+            var resultArray = getResultRowsAsArray(res);
+            callback(resultArray);
+          });
+
+      },
+      delete: function(exercise, callback) {
+        var query = "DELETE FROM exercises WHERE id=?";
+
+        $cordovaSQLite.execute(db, query, [exercise.id]).then(function(res) {
+          callback(res);
+        }, function(err) {
+          console.error(err);
+        });
       }
     }
   }])
