@@ -20,6 +20,10 @@
           <img class="full-image" ng-show="exercise.image !== null" ng-src="{{urlForImage(exercise.image)}}">
         </div>
         <p>{{exercise.description}}</p>
+        <p>
+          <a href="#" class="subdued">{{exercise.speed}}</a>
+          <a href="#" class="subdued">{{exercise.lastPracticeDate}}</a>
+        </p>
       </div>
 
       <div class="item tabs tabs-secondary tabs-icon-left">

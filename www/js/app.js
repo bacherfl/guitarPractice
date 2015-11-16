@@ -20,6 +20,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     db = $cordovaSQLite.openDB("gp.db");
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS exercises (id integer primary key, name text, description text," +
       "categoryId integer, image text)");
+
+    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS exercise_log (id integer primary key, date integer, " +
+      "speed integer, exerciseId integer)");
   });
 })
 
@@ -57,6 +60,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       })
+      .state('exercise-detail', {
+        url: 'exercise/:exerciseId',
+        templateUrl: 'templates/exercise-detail.html',
+        controller: 'ExerciseDetailCtrl',
+        resolve: {
+          exerciseId: function($stateParams) {
+            return $stateParams.exerciseId;
+          }
+        }
+      });
 
       $urlRouterProvider.otherwise('/home');
   })

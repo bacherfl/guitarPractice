@@ -56,15 +56,24 @@ angular.module('starter.services', [])
             callback(resultArray);
           });
       },
+      getById: function(exerciseId, callback) {
+        var query = "SELECT * FROM exercises WHERE id=?";
+        $cordovaSQLite.execute(db, query, [exerciseId]).then(function(res) {
+          if (res.rows.length > 0) {
+            var resultArray = getResultRowsAsArray(res);
+            callback(resultArray[0]);
+          } else {
+            callback(null);
+          }
+        });
+      },
       getAllOfCategory: function(categoryId, callback) {
-
         var query = "SELECT * FROM exercises WHERE categoryId=?";
         $cordovaSQLite.execute(db, query, [categoryId])
           .then(function(res) {
             var resultArray = getResultRowsAsArray(res);
             callback(resultArray);
           });
-
       },
       delete: function(exercise, callback) {
         var query = "DELETE FROM exercises WHERE id=?";
@@ -73,6 +82,29 @@ angular.module('starter.services', [])
           callback(res);
         }, function(err) {
           console.error(err);
+        });
+      },
+      addLogEntry: function(exercise, speed, callback) {
+        var query = "INSERT INTO exercise_log (exerciseId, speed, date) values (?,?,?)";
+
+        $cordovaSQLite.execute(db, query, [exercise.id, speed, Date.now()]).then(function(res) {
+          callback();
+        });
+      },
+      getLogEntries: function(exercise, callback) {
+        var query = "SELECT * FROM exercise_log where exerciseId=? ORDER BY date DESC";
+
+        $cordovaSQLite.execute(db, query, [exercise.id]).then(function(res) {
+          var resultArray = getResultRowsAsArray(res);
+          callback(resultArray);
+        });
+      },
+      getLatestLogEntry: function(exercise, callback) {
+        var query = "SELECT * FROM exercise_log where exerciseId=? ORDER BY date DESC LIMIT 1";
+
+        $cordovaSQLite.execute(db, query, [exercise.id]).then(function(res) {
+          var resultArray = getResultRowsAsArray(res);
+          callback(resultArray);
         });
       }
     }

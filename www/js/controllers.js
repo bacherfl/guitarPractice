@@ -10,6 +10,19 @@ angular.module('starter.controllers', [])
     $scope.$on('$ionicView.enter', function() {
       $scope.category = category;
       Exercises.getAllOfCategory(category.id, function(exercises) {
+        angular.forEach(exercises, function(exercise) {
+          Exercises.getLatestLogEntry(exercise, function(logEntryResult) {
+            if (logEntryResult.length > 0) {
+              exercise.speed = logEntryResult.speed;
+              var lastPracticeDate = new Date(logEntryResult.date);
+              var lastPracticeDateString = lastPracticeDate.getDay() + "." + lastPracticeDate.getMonth() + "." + lastPracticeDate.getFullYear();
+              exercise.lastPracticeDate = lastPracticeDateString;
+            } else {
+              exercise.speed = "-";
+              exercise.lastPracticeDate = "-";
+            }
+          });
+        });
         $scope.exercises = exercises;
       })
     });
@@ -34,6 +47,15 @@ angular.module('starter.controllers', [])
         }
       });
     };
+  })
+
+  .controller('ExerciseDetailCtrl', function($scope, exerciseId, Exercises) {
+    Exercises.getById(exerciseId, function(exercise) {
+      $scope.exercise = exercise
+      Exercises.getLogEntries($scope.exercise, function(log) {
+        $scope.exercise.log = log;
+      });
+    });
   })
 
   .controller('CreateExerciseCtrl', function($scope, categoryId, $cordovaCamera, $location, $state, Exercises, CameraService) {
