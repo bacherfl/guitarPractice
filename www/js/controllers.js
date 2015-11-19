@@ -49,7 +49,26 @@ angular.module('starter.controllers', [])
     };
   })
 
-  .controller('ExerciseDetailCtrl', function($scope, exerciseId, Exercises) {
+  .controller('ExerciseNavCtrl', function($scope, exerciseId) {
+    $scope.exerciseId = exerciseId;
+  })
+
+  .controller('ExerciseOverviewCtrl', function($scope, exerciseId, Exercises) {
+    Exercises.getById(exerciseId, function(exercise) {
+      $scope.exercise = exercise
+      Exercises.getLatestLogEntry(exercise, function(logEntry) {
+
+      })
+    });
+  })
+
+  .controller('ExercisePlayCtrl', function($scope, exerciseId, Exercises) {
+    Exercises.getById(exerciseId, function(exercise) {
+      $scope.exercise = exercise
+    });
+  })
+
+  .controller('ExerciseHistoryCtrl', function($scope, exerciseId, Exercises) {
     Exercises.getById(exerciseId, function(exercise) {
       $scope.exercise = exercise
       Exercises.getLogEntries($scope.exercise, function(log) {
@@ -58,6 +77,16 @@ angular.module('starter.controllers', [])
     });
   })
 
+  /*
+  .controller('ExerciseDetailCtrl', function($scope, exerciseId, Exercises) {
+    Exercises.getById(exerciseId, function(exercise) {
+      $scope.exercise = exercise
+      Exercises.getLogEntries($scope.exercise, function(log) {
+        $scope.exercise.log = log;
+      });
+    });
+  })
+  */
   .controller('CreateExerciseCtrl', function($scope, categoryId, $cordovaCamera, $location, $state, Exercises, CameraService) {
     $scope.exercise = {name: null, description: null, image: '', categoryId: categoryId};
     $scope.categoryId = categoryId;

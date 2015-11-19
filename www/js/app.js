@@ -60,6 +60,60 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       })
+      .state('exercise', {
+        url: 'exercise/:exerciseId',
+        abstract: true,
+        templateUrl: 'templates/exercise.html',
+        controller: 'ExerciseNavCtrl',
+        resolve: {
+          exerciseId: function($stateParams) {
+            return $stateParams.exerciseId;
+          }
+        }
+      })
+      .state('exercise.overview', {
+        url: 'exercise/:exerciseId/overview',
+        resolve: {
+          exerciseId: function($stateParams) {
+            return $stateParams.exerciseId;
+          }
+        },
+        views : {
+          'exercise-overview': {
+            templateUrl: 'templates/exercise-overview.html',
+            controller: 'ExerciseOverviewCtrl'
+          }
+        }
+      })
+      .state('exercise.history', {
+        url: 'exercise/:exerciseId/history',
+        resolve: {
+          exerciseId: function($stateParams) {
+            return $stateParams.exerciseId;
+          }
+        },
+        views: {
+          'exercise-history': {
+            templateUrl: 'templates/exercise-history.html',
+            controller: 'ExerciseHistoryCtrl'
+          }
+        }
+      })
+      .state('exercise.play', {
+        url: 'exercise/:exerciseId/play',
+        resolve: {
+          exerciseId: function($stateParams) {
+            return $stateParams.exerciseId;
+          }
+        },
+        views: {
+          'exercise-play': {
+            templateUrl: 'templates/exercise-play.html',
+            controller: 'ExercisePlayCtrl'
+          }
+        }
+      });
+      /*
       .state('exercise-detail', {
         url: 'exercise/:exerciseId',
         templateUrl: 'templates/exercise-detail.html',
@@ -70,6 +124,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       });
+      */
 
       $urlRouterProvider.otherwise('/home');
   })
