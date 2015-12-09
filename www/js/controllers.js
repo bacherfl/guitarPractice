@@ -49,17 +49,25 @@ angular.module('starter.controllers', [])
     };
   })
 
-  .controller('ExerciseNavCtrl', function($scope, exerciseId) {
+  .controller('ExerciseNavCtrl', function($scope, $state, exerciseId) {
     $scope.exerciseId = exerciseId;
+    $state.transitionTo("exercise.overview");
   })
 
   .controller('ExerciseOverviewCtrl', function($scope, exerciseId, Exercises) {
     Exercises.getById(exerciseId, function(exercise) {
       $scope.exercise = exercise
       Exercises.getLatestLogEntry(exercise, function(logEntry) {
-
-      })
+        $scope.exercise.log = logEntry;
+      });
     });
+
+    $scope.urlForImage = function(imageName) {
+      console.log(imageName);
+      var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+      var trueOrigin = cordova.file.dataDirectory + name;
+      return trueOrigin;
+    };
   })
 
   .controller('ExercisePlayCtrl', function($scope, exerciseId, Exercises) {

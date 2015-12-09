@@ -75,36 +75,31 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
       .state('exercise.overview', {
         url: '/overview',
-        templateUrl: 'templates/exercise-overview.html',
-        controller: 'ExerciseOverviewCtrl',
-        resolve: {
-          exerciseId: function($stateParams) {
-            return $stateParams.exerciseId;
+        views: {
+          'exercise-overview' : {
+            templateUrl: 'templates/exercise-overview.html',
+            controller: 'ExerciseOverviewCtrl'
           }
         }
       })
       .state('exercise.history', {
         url: '/history',
-        templateUrl: 'templates/exercise-history.html',
-        controller: 'ExerciseHistoryCtrl'
+        views: {
+          'exercise-history': {
+            templateUrl: 'templates/exercise-history.html',
+            controller: 'ExerciseHistoryCtrl'
+          }
+        }
       })
       .state('exercise.play', {
         url: '/play',
-        templateUrl: 'templates/exercise-play.html',
-        controller: 'ExercisePlayCtrl'
-      });
-      /*
-      .state('exercise-detail', {
-        url: 'exercise/:exerciseId',
-        templateUrl: 'templates/exercise-detail.html',
-        controller: 'ExerciseDetailCtrl',
-        resolve: {
-          exerciseId: function($stateParams) {
-            return $stateParams.exerciseId;
+        views: {
+          'exercise-play': {
+            templateUrl: 'templates/exercise-play.html',
+            controller: 'ExercisePlayCtrl'
           }
         }
       });
-      */
 
       $urlRouterProvider.otherwise('/home');
   })

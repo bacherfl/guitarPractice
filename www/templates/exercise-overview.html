@@ -1,1 +1,16 @@
-{{exercise.name}}
+<div class="center-cropped">
+  <img class="full-image" ng-show="exercise.image !== null" ng-src="{{urlForImage(exercise.image)}}">
+</div>
+<h2>{{exercise.id}} - {{exercise.name}}</h2>
+<div class="row">
+  <div class="col col-50">{{exercise.log.speed}}</div>
+  <div class="col col-50">
+    <a class="button button-icon icon ion-arrow-graph-up-right" href="#/exercise/{{exerciseId}}/history"></a>
+  </div>
+</div>
+<div class="row">
+  <button class="button button-full button-balanced icon-left ion-disc" href="#/exercise/{{exerciseId}}/play">
+    Start Practice
+  </button>
+</div>
+
