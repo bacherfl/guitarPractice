@@ -60,8 +60,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       })
+
       .state('exercise', {
-        url: 'exercise/:exerciseId',
+        url: '/exercise/:exerciseId',
         abstract: true,
         templateUrl: 'templates/exercise.html',
         controller: 'ExerciseNavCtrl',
@@ -71,47 +72,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       })
+
       .state('exercise.overview', {
-        url: 'exercise/:exerciseId/overview',
+        url: '/overview',
+        templateUrl: 'templates/exercise-overview.html',
+        controller: 'ExerciseOverviewCtrl',
         resolve: {
           exerciseId: function($stateParams) {
             return $stateParams.exerciseId;
-          }
-        },
-        views : {
-          'exercise-overview': {
-            templateUrl: 'templates/exercise-overview.html',
-            controller: 'ExerciseOverviewCtrl'
           }
         }
       })
       .state('exercise.history', {
-        url: 'exercise/:exerciseId/history',
-        resolve: {
-          exerciseId: function($stateParams) {
-            return $stateParams.exerciseId;
-          }
-        },
-        views: {
-          'exercise-history': {
-            templateUrl: 'templates/exercise-history.html',
-            controller: 'ExerciseHistoryCtrl'
-          }
-        }
+        url: '/history',
+        templateUrl: 'templates/exercise-history.html',
+        controller: 'ExerciseHistoryCtrl'
       })
       .state('exercise.play', {
-        url: 'exercise/:exerciseId/play',
-        resolve: {
-          exerciseId: function($stateParams) {
-            return $stateParams.exerciseId;
-          }
-        },
-        views: {
-          'exercise-play': {
-            templateUrl: 'templates/exercise-play.html',
-            controller: 'ExercisePlayCtrl'
-          }
-        }
+        url: '/play',
+        templateUrl: 'templates/exercise-play.html',
+        controller: 'ExercisePlayCtrl'
       });
       /*
       .state('exercise-detail', {
