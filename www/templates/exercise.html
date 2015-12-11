@@ -1,18 +1,14 @@
-<ion-view>
+<ion-view class="has-header">
   <div class="bar bar-header bar-dark">
     <h1 class="title">{{exercise.name}}</h1>
   </div>
   <ion-tabs class="tabs-positive tabs-icon-only tabs-icon-top">
 
-    <ion-tab title="Overview" icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline" href="#/exercise/{{exerciseId}}/overview">
-      <ion-nav-view name="exercise-overview" cache-view="false"></ion-nav-view>
+    <ion-tab title="Overview" icon-on="ion-home" icon-off="ion-home" href="#/exercise/{{exerciseId}}/overview">
+      <ion-nav-view name="exercise-overview" cache-view="false" class="has-header"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab title="Play" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline" href="#/exercise/{{exerciseId}}/play">
-      <ion-nav-view name="exercise-play"></ion-nav-view>
-    </ion-tab>
-
-    <ion-tab title="History" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline" href="#/exercise/{{exerciseId}}/history">
+    <ion-tab title="History" icon-on="ion-" icon-off="ion-arrow-graph-up-right" href="#/exercise/{{exerciseId}}/history">
       <ion-nav-view name="exercise-history"></ion-nav-view>
     </ion-tab>
 

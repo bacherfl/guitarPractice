@@ -100,6 +100,8 @@ angular.module('starter.services', [])
         });
       },
       getLatestLogEntry: function(exercise, callback) {
+        if (exercise === undefined)
+          return;
         var query = "SELECT * FROM exercise_log where exerciseId=? ORDER BY date DESC LIMIT 1";
 
         $cordovaSQLite.execute(db, query, [exercise.id]).then(function(res) {

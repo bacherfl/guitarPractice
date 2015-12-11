@@ -1,10 +1,22 @@
 <div class="center-cropped">
   <img class="full-image" ng-show="exercise.image !== null" ng-src="{{urlForImage(exercise.image)}}">
 </div>
-<div class="row">
-  <div class="col col-50">{{exercise.log.speed}}</div>
+<div class="row" ng-show="exercise.log.date !== undefined">
+  <div class="col col-50">
+    <div class="card">
+      <div class="item item-divider">
+        {{getFormattedDate(exercise.log.date)}}
+      </div>
+      {{exercise.log.speed}} bpm
+    </div>
+  </div>
   <div class="col col-50">
     <a class="button button-icon icon ion-arrow-graph-up-right" href="#/exercise/{{exerciseId}}/history"></a>
+  </div>
+</div>
+<div class="row" ng-show="exercise.log.date === undefined">
+  <div class="col col-100">
+    No entries yet. Start practising now!
   </div>
 </div>
 <div class="row">
