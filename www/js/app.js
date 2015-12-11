@@ -4,6 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 var db = null;
+var PERFORMANCE_MINUS = 0;
+var PERFORMANCE_NEUTRAL = 1;
+var PERFORMANCE_PLUS = 2;
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
 .run(function($ionicPlatform, $cordovaSQLite, $window) {
@@ -22,7 +25,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       "categoryId integer, image text)");
 
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS exercise_log (id integer primary key, date integer, " +
-      "speed integer, exerciseId integer)");
+      "speed integer, exerciseId integer, performance_tag integer)");
   });
 })
 

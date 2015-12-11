@@ -58,18 +58,15 @@ angular.module('starter.controllers', [])
   })
 
   .controller('ExerciseOverviewCtrl', function($scope, exerciseId, Exercises) {
-
+    $scope.initialized = false;
     Exercises.getById(exerciseId, function(exercise) {
       $scope.exercise = exercise;
       Exercises.getLatestLogEntry(exercise, function(logEntry) {
         $scope.exercise.log = logEntry;
+        $scope.initialized = true;
       });
     });
-    /*
-    Exercises.getLatestLogEntry($scope.exercise, function(logEntry) {
-      $scope.exercise.log = logEntry;
-    });
-    */
+
     $scope.urlForImage = function(imageName) {
       if (imageName === undefined)
         return "";
@@ -85,6 +82,19 @@ angular.module('starter.controllers', [])
       var ret = "";
       ret += date.getDay() + "." + date.getMonth() + "." + date.getYear();
       return ret;
+    };
+
+    $scope.getNextSessionBpm = function() {
+      if (!$scope.initialized)
+        return "";
+
+      if ($scope.exercise.log.performace_tag == PERFORMANCE_MINUS) {
+        return $scope.exercise.log.speed - 5;
+      } else if ($scope.exercise.log.performance_tag == PERFORMANCE_NEUTRAL) {
+        return $scope.exercise.log.speed;
+      } else if ($scope.exercise.log.performance_tag == PERFORMANCE_PLUS) {
+        return $scope.exercise.log.speed + 5;
+      }
     };
   })
 

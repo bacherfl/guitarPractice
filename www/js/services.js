@@ -100,7 +100,7 @@ angular.module('starter.services', [])
         });
       },
       getLatestLogEntry: function(exercise, callback) {
-        if (exercise === undefined)
+        if (exercise === undefined || exercise === null)
           return;
         var query = "SELECT * FROM exercise_log where exerciseId=? ORDER BY date DESC LIMIT 1";
 

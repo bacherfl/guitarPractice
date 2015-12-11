@@ -1,27 +1,44 @@
-<div class="center-cropped">
-  <img class="full-image" ng-show="exercise.image !== null" ng-src="{{urlForImage(exercise.image)}}">
-</div>
-<div class="row" ng-show="exercise.log.date !== undefined">
-  <div class="col col-50">
-    <div class="card">
-      <div class="item item-divider">
-        {{getFormattedDate(exercise.log.date)}}
-      </div>
-      {{exercise.log.speed}} bpm
+<ion-view>
+  <div class="float-button">
+    <span class="height-fix">
+      <a class="content" href="#/exercise/{{exerciseId}}/play">
+        <i class="ion-plus-round"> </i>
+      </a>
+    </span>
+  </div>
+  <ion-content class="has-tabs-top">
+    <div class="center-cropped">
+      <img class="full-image" ng-show="exercise.image !== null" ng-src="{{urlForImage(exercise.image)}}">
     </div>
-  </div>
-  <div class="col col-50">
-    <a class="button button-icon icon ion-arrow-graph-up-right" href="#/exercise/{{exerciseId}}/history"></a>
-  </div>
-</div>
-<div class="row" ng-show="exercise.log.date === undefined">
-  <div class="col col-100">
-    No entries yet. Start practising now!
-  </div>
-</div>
-<div class="row">
-  <button class="button button-full button-balanced icon-left ion-disc" href="#/exercise/{{exerciseId}}/play">
-    Start Practice
-  </button>
-</div>
+    <div class="row" ng-show="exercise.log.date !== undefined">
+      <div class="col col-50">
+        <div class="card">
+          <div class="item item-divider">
+            {{getFormattedDate(exercise.log.date)}}
+          </div>
+          {{exercise.log.speed}} bpm
+        </div>
+      </div>
+      <div class="col col-50">
+        <div class="card">
+          <div class="item item-divider">
+            next session
+          </div>
+          {{getNextSessionBpm()}} bpm
+        </div>
+      </div>
+    </div>
+    <div class="row" ng-show="exercise.log.date === undefined">
+      <div class="col col-100">
+        <div class="card">
+          <div class="item item-text-wrap">
+            No entries yet. Start practising now!
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+
+
 
